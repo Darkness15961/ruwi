@@ -40,7 +40,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
+        if (! $token = auth('api')->attempt($validator->validated())) {
             return response()->json([
                 'status' => 0,
                 'message' => 'Unauthorized',
@@ -84,7 +84,7 @@ class AuthController extends Controller
         ));
 
         // Get the token
-        $token = auth()->login($user);
+        $token = auth('api')->login($user);
 
         return response()->json([
             'status' => 1,
@@ -104,7 +104,7 @@ class AuthController extends Controller
     public function profile()
     {
 
-        return response()->json(auth()->user());
+        return response()->json(auth('api')->user());
     }
 
     /**
@@ -114,7 +114,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -126,7 +126,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth('api')->refresh());
     }
 
     /**
@@ -142,8 +142,8 @@ class AuthController extends Controller
             'message' => 'User successfully login',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'data' => auth()->user(),
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'data' => auth('api')->user(),
         ]);
     }
 }
