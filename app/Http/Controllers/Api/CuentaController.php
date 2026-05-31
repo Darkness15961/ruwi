@@ -12,7 +12,7 @@ class CuentaController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $cuentas = Cuenta::with('empresa')->paginate($perPage);
+        $cuentas = Cuenta::paginate($perPage);
         
         return response()->json([
             'status' => 1,
@@ -24,7 +24,6 @@ class CuentaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'empresas_id' => 'required|exists:empresas,id',
             'nombre' => 'required|string|max:255',
             'moneda' => 'required|string|max:255',
             'nro_cuenta' => 'required|string|max:255',

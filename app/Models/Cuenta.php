@@ -10,14 +10,8 @@ class Cuenta extends Model
     use HasFactory;
 
     protected $fillable = [
-        'empresas_id',
         'nombre',
         'moneda',
         'nro_cuenta',
     ];
-
-    public function empresa()
-    {
-        return $this->belongsTo(Empresa::class, 'empresas_id');
-    }
 }
