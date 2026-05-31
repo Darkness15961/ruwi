@@ -14,5 +14,7 @@ Route::group([
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::post('/profile', [AuthController::class, 'profile']);
+        
+        Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
     });
 });
