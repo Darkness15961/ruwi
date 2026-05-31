@@ -27,6 +27,9 @@ Route::group([
             Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
             Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);
             Route::resource('/detalleingresos', \App\Http\Controllers\Api\DetalleIngresoController::class);
+            Route::resource('/cotizaciones', \App\Http\Controllers\Api\CotizacionController::class);
+            Route::resource('/productos', \App\Http\Controllers\Api\ProductoController::class);
+            Route::resource('/productoinsumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
         });
     });
 });
