@@ -15,16 +15,22 @@ Route::group([
         Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::post('/profile', [AuthController::class, 'profile']);
         
-        Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
-        Route::resource('/cotizaciones', \App\Http\Controllers\Api\CotizacionController::class);
-        Route::resource('/productos', \App\Http\Controllers\Api\ProductoController::class);
-        Route::resource('/producto-insumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
-        Route::resource('/categorias', \App\Http\Controllers\Api\CategoriaController::class);
-        Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
-        Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);
-        Route::resource('/detalleingresos', \App\Http\Controllers\Api\DetalleIngresoController::class);
+        //PARA LA BD PRINCIPAL(ruwi) 
         Route::resource('/empresas', \App\Http\Controllers\Api\EmpresaController::class);
         Route::resource('/usuarios', \App\Http\Controllers\Api\UserController::class);
         Route::resource('/empresausuarios', \App\Http\Controllers\Api\EmpresaUsuarioController::class);
+
+        //PARA EMPRESAS(multi-tenant ruwi_ruc_numero)
+        Route::middleware('tenant.db')->group(function () {
+            Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
+            Route::resource('/categorias', \App\Http\Controllers\Api\CategoriaController::class);
+            Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
+            Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);
+            Route::resource('/detalleingresos', \App\Http\Controllers\Api\DetalleIngresoController::class);
+            Route::resource('/cotizaciones', \App\Http\Controllers\Api\CotizacionController::class);
+            Route::resource('/productos', \App\Http\Controllers\Api\ProductoController::class);
+            Route::resource('/productoinsumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
+            Route::resource('/producto-insumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
+        });
     });
 });

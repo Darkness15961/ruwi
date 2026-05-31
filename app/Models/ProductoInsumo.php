@@ -18,14 +18,14 @@ class ProductoInsumo extends Model
         'destino',
         'estado',
     ];
+    public function detalleIngreso()
+    {
+        return $this->belongsTo(DetalleIngreso::class, 'detalleingresos_id');
+    }
 
     public function producto()
     {
         return $this->belongsTo(Producto::class, 'productos_id');
     }
 
-    public function detalleIngreso()
-    {
-        return $this->belongsTo(DetalleIngreso::class, 'detalleingresos_id');
-    }
 }

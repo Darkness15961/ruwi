@@ -14,6 +14,7 @@ class ProductoController extends Controller
         $perPage = $request->input('per_page', 10);
         $productos = Producto::with(['cotizacion', 'productoInsumos'])->paginate($perPage);
 
+
         return response()->json([
             'status' => 1,
             'message' => 'Productos obtenidos correctamente',
