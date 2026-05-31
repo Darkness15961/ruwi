@@ -16,6 +16,9 @@ Route::group([
         Route::post('/profile', [AuthController::class, 'profile']);
         
         Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
+        Route::resource('/cotizaciones', \App\Http\Controllers\Api\CotizacionController::class);
+        Route::resource('/productos', \App\Http\Controllers\Api\ProductoController::class);
+        Route::resource('/producto-insumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
         Route::resource('/categorias', \App\Http\Controllers\Api\CategoriaController::class);
         Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
         Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);

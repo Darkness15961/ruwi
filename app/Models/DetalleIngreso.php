@@ -19,11 +19,6 @@ class DetalleIngreso extends Model
         'fecha_vencimiento',
     ];
 
-    public function ingreso()
-    {
-        return $this->belongsTo(Ingreso::class, 'ingresos_id');
-    }
-
     public function insumo()
     {
         return $this->belongsTo(Insumo::class, 'insumos_id');

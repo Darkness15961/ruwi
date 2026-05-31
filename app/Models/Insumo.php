@@ -9,6 +9,8 @@ class Insumo extends Model
 {
     use HasFactory;
 
+    protected $table = 'insumos';
+
     protected $fillable = [
         'nombre',
         'umedida',
@@ -21,12 +23,12 @@ class Insumo extends Model
         return $this->belongsTo(Categoria::class, 'categorias_id');
     }
 
-    public function parentInsumo()
+    public function insumoPadre()
     {
         return $this->belongsTo(Insumo::class, 'insumos_id');
     }
 
-    public function childInsumos()
+    public function insumosHijos()
     {
         return $this->hasMany(Insumo::class, 'insumos_id');
     }
