@@ -78,7 +78,6 @@ class CuentaController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'empresas_id' => 'sometimes|required|exists:empresas,id',
             'nombre' => 'sometimes|required|string|max:255',
             'moneda' => 'sometimes|required|string|max:255',
             'nro_cuenta' => 'sometimes|required|string|max:255',
