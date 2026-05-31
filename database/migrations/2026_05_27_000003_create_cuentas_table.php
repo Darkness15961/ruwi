@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('empresas_id')->constrained('empresas')->onDelete('cascade');
             $table->string('nombre');
             $table->string('moneda');
             $table->string('nro_cuenta');
