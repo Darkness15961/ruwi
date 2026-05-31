@@ -15,13 +15,15 @@ Route::group([
         Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::post('/profile', [AuthController::class, 'profile']);
         
-        Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
-        Route::resource('/categorias', \App\Http\Controllers\Api\CategoriaController::class);
-        Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
-        Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);
-        Route::resource('/detalleingresos', \App\Http\Controllers\Api\DetalleIngresoController::class);
-        Route::resource('/empresas', \App\Http\Controllers\Api\EmpresaController::class);
-        Route::resource('/usuarios', \App\Http\Controllers\Api\UserController::class);
-        Route::resource('/empresausuarios', \App\Http\Controllers\Api\EmpresaUsuarioController::class);
+        Route::middleware('tenant.db')->group(function () {
+            Route::resource('/cuentas', \App\Http\Controllers\Api\CuentaController::class);
+            Route::resource('/categorias', \App\Http\Controllers\Api\CategoriaController::class);
+            Route::resource('/insumos', \App\Http\Controllers\Api\InsumoController::class);
+            Route::resource('/ingresos', \App\Http\Controllers\Api\IngresoController::class);
+            Route::resource('/detalleingresos', \App\Http\Controllers\Api\DetalleIngresoController::class);
+            Route::resource('/empresas', \App\Http\Controllers\Api\EmpresaController::class);
+            Route::resource('/usuarios', \App\Http\Controllers\Api\UserController::class);
+            Route::resource('/empresausuarios', \App\Http\Controllers\Api\EmpresaUsuarioController::class);
+        });
     });
 });

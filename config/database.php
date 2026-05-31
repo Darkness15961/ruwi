@@ -4,6 +4,13 @@ use Illuminate\Support\Str;
 
 return [
 
+    'tenant' => [
+        'prefix' => env('DB_PREFIX', 'ruwi_'),
+        'ruc_header' => env('TENANT_RUC_HEADER', 'X-Ruc'),
+        'base_connection' => env('TENANT_BASE_CONNECTION', env('DB_CONNECTION', 'mysql')),
+        'root_database' => env('DB_ROOT_DATABASE', env('DB_DATABASE', 'ruwi')),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name

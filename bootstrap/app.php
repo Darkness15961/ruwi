@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+            'tenant.db' => \App\Http\Middleware\UseTenantDatabase::class,
+            'root.db' => \App\Http\Middleware\UseRootDatabase::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
