@@ -23,6 +23,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/empresas', \App\Http\Controllers\Api\EmpresaController::class);
     Route::resource('/usuarios', \App\Http\Controllers\Api\UserController::class);
     Route::resource('/empresausuarios', \App\Http\Controllers\Api\EmpresaUsuarioController::class);
+    Route::resource('/menus', \App\Http\Controllers\Api\MenuController::class);
+    Route::resource('/menuusuarios', \App\Http\Controllers\Api\MenuUsuarioController::class);
+    Route::get('/sidebar/menu', [\App\Http\Controllers\Api\SidebarController::class, 'getMenu']);
 });
 
 // Rutas multi-tenant para empresas (sin prefijo auth, protegidas por auth:api y tenant.db)

@@ -26,4 +26,10 @@ class EmpresaUsuario extends Model
     {
         return $this->belongsTo(Empresa::class, 'empresas_id');
     }
+
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'menuusuario', 'empresausuario_id', 'menus_id')
+            ->withTimestamps();
+    }
 }
