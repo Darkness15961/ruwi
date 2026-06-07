@@ -12,13 +12,12 @@ class CuentaController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $cuentas = Cuenta::paginate($perPage);
+        $cuentas = Cuenta::where('nombre', 'like', '%' . $request->buscar . '%')
+            ->orWhere('moneda', 'like', '%' . $request->buscar . '%')
+            ->orWhere('nro_cuenta', 'like', '%' . $request->buscar . '%')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Cuentas obtenidas correctamente',
-            'data' => $cuentas,
-        ], 200);
+        return $cuentas;
     }
 
     public function store(Request $request)

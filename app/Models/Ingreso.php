@@ -11,6 +11,7 @@ class Ingreso extends Model
 
     protected $fillable = [
         'fecha',
+        'detalle',
         'origen',
         'ruc_factura',
         'serie_factura',

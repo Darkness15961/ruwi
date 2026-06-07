@@ -12,19 +12,19 @@ class IngresoController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $ingresos = Ingreso::paginate($perPage);
+        $ingresos = Ingreso::
+            where('detalle', 'like', '%' . $request->buscar . '%')
+            ->orWhere('origen', 'like', '%' . $request->buscar . '%')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Ingresos obtenidos correctamente',
-            'data' => $ingresos,
-        ], 200);
+        return $ingresos;
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'fecha' => 'required|date',
+            'detalle' => 'required|string|max:255',
             'origen' => 'required|string|max:255',
             'ruc_factura' => 'required|string|max:255',
             'serie_factura' => 'required|string|max:255',
@@ -81,6 +81,7 @@ class IngresoController extends Controller
 
         $validator = Validator::make($request->all(), [
             'fecha' => 'sometimes|required|date',
+            'detalle' => 'sometimes|required|string|max:255',
             'origen' => 'sometimes|required|string|max:255',
             'ruc_factura' => 'sometimes|required|string|max:255',
             'serie_factura' => 'sometimes|required|string|max:255',

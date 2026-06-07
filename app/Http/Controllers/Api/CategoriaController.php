@@ -12,13 +12,10 @@ class CategoriaController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $categorias = Categoria::paginate($perPage);
+        $categorias = Categoria::where('nombre', 'like', '%' . $request->buscar . '%')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Categorías obtenidas correctamente',
-            'data' => $categorias,
-        ], 200);
+        return $categorias;
     }
 
     public function store(Request $request)

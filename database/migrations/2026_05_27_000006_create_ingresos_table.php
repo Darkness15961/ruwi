@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('ingresos', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
-            $table->string('origen');
-            $table->string('ruc_factura');
-            $table->string('serie_factura');
-            $table->integer('nro_factura');
+            $table->string('detalle');
+            $table->string('origen'); // Boleta, Factura, Nota de crédito, Nota de débito
+            $table->string('ruc_factura')->nullable();
+            $table->string('serie_factura')->nullable();
+            $table->integer('nro_factura')->nullable();
             $table->timestamps();
         });
     }

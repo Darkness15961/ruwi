@@ -12,13 +12,11 @@ class DetalleIngresoController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $detalleIngresos = DetalleIngreso::with(['ingreso', 'insumo'])->paginate($perPage);
+        $detalleIngresos = DetalleIngreso::
+            where('ingresos_id', $request->ingresos_id)
+            ->with(['ingreso', 'insumo'])->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Detalle de ingresos obtenidos correctamente',
-            'data' => $detalleIngresos,
-        ], 200);
+        return $detalleIngresos;
     }
 
     public function store(Request $request)

@@ -12,13 +12,12 @@ class CotizacionController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $cotizacions = Cotizacion::with(['user', 'productos'])->paginate($perPage);
+        $cotizacions = Cotizacion::with(['user', 'productos'])
+            ->where('ruc', 'like', '%' . $request->buscar . '%')
+            ->orWhere('descripcion', 'like', '%' . $request->buscar . '%')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Cotizaciones obtenidas correctamente',
-            'data' => $cotizacions,
-        ], 200);
+        return $cotizacions;
     }
 
     public function store(Request $request)

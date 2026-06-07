@@ -12,13 +12,12 @@ class InsumoController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $insumos = Insumo::with(['categoria', 'parentInsumo'])->paginate($perPage);
+        $insumos = Insumo::with(['categoria', 'parentInsumo'])
+            ->where('nombre', 'like', '%' . $request->buscar . '%')
+            ->orWhere('umedida', 'like', '%' . $request->buscar . '%')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Insumos obtenidos correctamente',
-            'data' => $insumos,
-        ], 200);
+        return $insumos;
     }
 
     public function store(Request $request)
