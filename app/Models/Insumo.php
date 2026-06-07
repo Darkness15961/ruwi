@@ -12,6 +12,7 @@ class Insumo extends Model
     protected $fillable = [
         'nombre',
         'umedida',
+        'img_url',
         'categorias_id',
         'insumos_id',
     ];

@@ -15,6 +15,10 @@ class IngresoController extends Controller
         $ingresos = Ingreso::
             where('detalle', 'like', '%' . $request->buscar . '%')
             ->orWhere('origen', 'like', '%' . $request->buscar . '%')
+            ->orWhere('ruc_factura', 'like', '%' . $request->buscar . '%')
+            ->orWhere('serie_factura', 'like', '%' . $request->buscar . '%')
+            ->orWhere('nro_factura', 'like', '%' . $request->buscar . '%')
+            ->orderBy('id', 'desc')
             ->paginate($perPage);
         
         return $ingresos;
@@ -25,10 +29,7 @@ class IngresoController extends Controller
         $validator = Validator::make($request->all(), [
             'fecha' => 'required|date',
             'detalle' => 'required|string|max:255',
-            'origen' => 'required|string|max:255',
-            'ruc_factura' => 'required|string|max:255',
-            'serie_factura' => 'required|string|max:255',
-            'nro_factura' => 'required|integer',
+            'origen' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -82,10 +83,7 @@ class IngresoController extends Controller
         $validator = Validator::make($request->all(), [
             'fecha' => 'sometimes|required|date',
             'detalle' => 'sometimes|required|string|max:255',
-            'origen' => 'sometimes|required|string|max:255',
-            'ruc_factura' => 'sometimes|required|string|max:255',
-            'serie_factura' => 'sometimes|required|string|max:255',
-            'nro_factura' => 'sometimes|required|integer',
+            'origen' => 'sometimes|required|string|max:255'
         ]);
 
         if ($validator->fails()) {

@@ -25,6 +25,7 @@ class InsumoController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'umedida' => 'required|string|max:255',
+            'img_url' => 'nullable|string|max:255',
             'categorias_id' => 'required|exists:categorias,id',
             'insumos_id' => 'nullable|exists:insumos,id',
         ]);
@@ -80,6 +81,7 @@ class InsumoController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'sometimes|required|string|max:255',
             'umedida' => 'sometimes|required|string|max:255',
+            'img_url' => 'sometimes|nullable|string|max:255',
             'categorias_id' => 'sometimes|required|exists:categorias,id',
             'insumos_id' => 'nullable|exists:insumos,id',
         ]);

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('umedida');
+            $table->string('img_url')->nullable();
             $table->foreignId('categorias_id')->constrained('categorias')->onDelete('cascade');
             $table->foreignId('insumos_id')->nullable()->constrained('insumos')->onDelete('set null');
             $table->timestamps();
