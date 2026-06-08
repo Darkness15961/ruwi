@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cotizacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class CotizacionController extends Controller
 {
@@ -131,5 +132,39 @@ class CotizacionController extends Controller
             'message' => 'Cotización eliminada correctamente',
             'data' => (object)[],
         ], 200);
+    }
+
+    public function obtenerCotizacionPorId($id)
+    {
+        $cabecera = DB::table('cotizacions as cz')
+            ->join('rucs as r', 'r.ruc', '=', 'cz.ruc')
+            ->select(
+                'r.razon_social',
+                'r.telefono',
+                'r.direccion',
+                'r.email',
+                'cz.*',
+                DB::raw('cz.id as nro_cotizacion')
+            )
+            ->where('cz.id', $id)
+            ->first();
+
+        $productos = DB::table('productos')
+            ->select(
+                'nombre',
+                'cantidad',
+                'punitario',
+                'igv'
+            )
+            ->where('cotizacions_id', $id)
+            ->get();
+
+        $cuentas = DB::table('cuentas')->get();
+
+        return [
+            'cabecera' => $cabecera,
+            'productos' => $productos,
+            'cuentas' => $cuentas
+        ];
     }
 }

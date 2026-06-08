@@ -29,7 +29,10 @@ class IngresoController extends Controller
         $validator = Validator::make($request->all(), [
             'fecha' => 'required|date',
             'detalle' => 'required|string|max:255',
-            'origen' => 'required|string|max:255'
+            'origen' => 'required|string|max:255',
+            'ruc_factura' => 'nullable|string|max:255',
+            'serie_factura' => 'nullable|string|max:255',
+            'nro_factura' => 'nullable|integer',
         ]);
 
         if ($validator->fails()) {
@@ -83,7 +86,10 @@ class IngresoController extends Controller
         $validator = Validator::make($request->all(), [
             'fecha' => 'sometimes|required|date',
             'detalle' => 'sometimes|required|string|max:255',
-            'origen' => 'sometimes|required|string|max:255'
+            'origen' => 'sometimes|required|string|max:255',
+            'ruc_factura' => 'nullable|string|max:255',
+            'serie_factura' => 'nullable|string|max:255',
+            'nro_factura' => 'nullable|integer',
         ]);
 
         if ($validator->fails()) {

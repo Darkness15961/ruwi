@@ -37,4 +37,15 @@ Route::middleware(['auth:api', 'tenant.db'])->group(function () {
     Route::resource('/productoinsumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
 
     Route::get('/saldo-real-detalle-ingreso', [\App\Http\Controllers\Api\DetalleIngresoController::class, 'saldoRealDetalleIngreso']);
+    Route::get('/obtener-cotizacion-por-id/{id}', [\App\Http\Controllers\Api\CotizacionController::class, 'obtenerCotizacionPorId']);
+
+    Route::prefix('apis')->group(function () {
+        Route::get('/resumen', [\App\Http\Controllers\Api\ApisController::class, 'resumen']);
+        Route::get('/inventario', [\App\Http\Controllers\Api\ApisController::class, 'inventario']);
+        Route::get('/compras', [\App\Http\Controllers\Api\ApisController::class, 'compras']);
+        Route::get('/cotizaciones', [\App\Http\Controllers\Api\ApisController::class, 'cotizaciones']);
+        Route::get('/produccion', [\App\Http\Controllers\Api\ApisController::class, 'produccion']);
+        Route::get('/graficos', [\App\Http\Controllers\Api\ApisController::class, 'graficos']);
+        Route::get('/alertas', [\App\Http\Controllers\Api\ApisController::class, 'alertas']);
+    });
 });
