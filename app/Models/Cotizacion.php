@@ -21,11 +21,6 @@ class Cotizacion extends Model
         'estado',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'users_id');
-    }
-
     public function productos()
     {
         return $this->hasMany(Producto::class, 'cotizacions_id');

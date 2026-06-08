@@ -35,4 +35,6 @@ Route::middleware(['auth:api', 'tenant.db'])->group(function () {
     Route::resource('/cotizaciones', \App\Http\Controllers\Api\CotizacionController::class);
     Route::resource('/productos', \App\Http\Controllers\Api\ProductoController::class);
     Route::resource('/productoinsumos', \App\Http\Controllers\Api\ProductoInsumoController::class);
+
+    Route::get('/saldo-real-detalle-ingreso', [\App\Http\Controllers\Api\DetalleIngresoController::class, 'saldoRealDetalleIngreso']);
 });

@@ -12,9 +12,10 @@ class CotizacionController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
-        $cotizacions = Cotizacion::with(['user', 'productos'])
+        $cotizacions = Cotizacion::with(['productos'])
             ->where('ruc', 'like', '%' . $request->buscar . '%')
             ->orWhere('descripcion', 'like', '%' . $request->buscar . '%')
+            ->orderBy('id', 'desc')
             ->paginate($perPage);
         
         return $cotizacions;
@@ -29,7 +30,7 @@ class CotizacionController extends Controller
             'detalle' => 'nullable|string',
             'fecha_vencimiento' => 'nullable|date',
             'condicion' => 'nullable|string',
-            'users_id' => 'required|exists:users,id',
+            'users_id' => 'required',
             'foto_ref' => 'nullable|string|max:255',
             'estado' => 'required|integer',
         ]);
@@ -53,7 +54,7 @@ class CotizacionController extends Controller
 
     public function show($id)
     {
-        $cotizacion = Cotizacion::with(['user', 'productos'])->find($id);
+        $cotizacion = Cotizacion::with(['productos'])->find($id);
 
         if (!$cotizacion) {
             return response()->json([
@@ -89,7 +90,7 @@ class CotizacionController extends Controller
             'detalle' => 'nullable|string',
             'fecha_vencimiento' => 'nullable|date',
             'condicion' => 'nullable|string',
-            'users_id' => 'sometimes|required|exists:users,id',
+            'users_id' => 'sometimes|required',
             'foto_ref' => 'nullable|string|max:255',
             'estado' => 'sometimes|required|integer',
         ]);

@@ -11,14 +11,15 @@ class ProductoInsumoController extends Controller
 {
     public function index(Request $request)
     {
+        $productos_id = $request->productos_id;
         $perPage = $request->input('per_page', 10);
-        $productoInsumos = ProductoInsumo::with(['detalleIngreso', 'producto'])->paginate($perPage);
+        $productoInsumos = ProductoInsumo::
+            with(['detalleIngreso.insumo', 'producto'])
+            ->where('productos_id', $productos_id)
+            ->orderBy('id', 'desc')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Relación producto-insumo obtenida correctamente',
-            'data' => $productoInsumos,
-        ], 200);
+        return $productoInsumos;
     }
 
     public function store(Request $request)
@@ -26,9 +27,7 @@ class ProductoInsumoController extends Controller
         $validator = Validator::make($request->all(), [
             'detalleingresos_id' => 'required|exists:detalleingresos,id',
             'productos_id' => 'required|exists:productos,id',
-            'cantidad' => 'required|numeric|min:0',
-            'destino' => 'required|string|max:255',
-            'estado' => 'required|integer',
+            'cantidad' => 'required|numeric|min:0'
         ]);
 
         if ($validator->fails()) {
@@ -50,7 +49,7 @@ class ProductoInsumoController extends Controller
 
     public function show($id)
     {
-        $productoInsumo = ProductoInsumo::with(['detalleIngreso', 'producto'])->find($id);
+        $productoInsumo = ProductoInsumo::with(['detalleIngreso.insumo', 'producto'])->find($id);
 
         if (!$productoInsumo) {
             return response()->json([
@@ -82,9 +81,7 @@ class ProductoInsumoController extends Controller
         $validator = Validator::make($request->all(), [
             'detalleingresos_id' => 'sometimes|required|exists:detalleingresos,id',
             'productos_id' => 'sometimes|required|exists:productos,id',
-            'cantidad' => 'sometimes|required|numeric|min:0',
-            'destino' => 'sometimes|required|string|max:255',
-            'estado' => 'sometimes|required|integer',
+            'cantidad' => 'sometimes|required|numeric|min:0'
         ]);
 
         if ($validator->fails()) {

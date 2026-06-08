@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('detalleingresos_id')->constrained('detalleingresos')->onDelete('cascade');
             $table->foreignId('productos_id')->constrained('productos')->onDelete('cascade');
             $table->decimal('cantidad', 10, 2);
-            $table->string('destino');
-            $table->integer('estado');
+            $table->string('destino')->nullable();
+            $table->integer('estado')->default(1);
             $table->timestamps();
         });
     }

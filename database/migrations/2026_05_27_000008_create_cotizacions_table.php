@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text('detalle')->nullable();
             $table->date('fecha_vencimiento')->nullable();
             $table->text('condicion')->nullable();
-            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
+            $table->integer('users_id');
             $table->string('foto_ref')->nullable();
-            $table->integer('estado');
+            $table->integer('estado')->default(1);
             $table->timestamps();
         });
     }

@@ -11,14 +11,15 @@ class ProductoController extends Controller
 {
     public function index(Request $request)
     {
+        $cotizacions_id = $request->cotizacions_id;
         $perPage = $request->input('per_page', 10);
-        $productos = Producto::with(['cotizacion', 'productoInsumos'])->paginate($perPage);
+        $productos = Producto::
+            with(['cotizacion', 'productoInsumos'])
+            ->where('cotizacions_id', $cotizacions_id)
+            ->orderBy('id', 'desc')
+            ->paginate($perPage);
         
-        return response()->json([
-            'status' => 1,
-            'message' => 'Productos obtenidos correctamente',
-            'data' => $productos,
-        ], 200);
+        return $productos;
     }
 
     public function store(Request $request)
